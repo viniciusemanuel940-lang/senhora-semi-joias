@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Senhora Semi Joia</title>
+
+    <style>
+        :root {
+            --ouro: #c9a24a;
+            --ouro-claro: #a8842f;
+            --ouro-escuro: #a8842f;
+            --fundo: #0b0b0b;
+            --cartao: #1a1a1a;
+            --borda: #2f2f2f;
+            --texto: #f5f1e8;
+            --cinza: #9a948a;
+            --verde: #5fbf7a;
+            --vermelho: #7a2a2a;
+
+        }
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--fundo);
+            color: var(--texto);
+            font-family: system-ui, sans-serif;
+        }
+
+        .abertura{
+            position: fixed;
+            inset: 0;
+            background: var(--fundo);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 30;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .abertura.escondida {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .diamante {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .marca {
+            color: var(--ouro);
+            font-size: 40px;
+            letter-spacing: 12px;
+            margin: 24px 0 0;
+        }
+
+        .sub {
+            color: var(--ouro-claro);
+            font-size: 14px;
+            letter-spacing: 8px;
+            margin: 8px 0 0;;
+        }
+        @keyframes brilho {
+            0%, 100% { filter: drop-shadow(0 0 2px var(--ouro)); }
+            50%      { filter: drop-shadow(0 0 40px var(--ouro)); }
+        }
+            .diamante svg {
+                animation: brilho 2s ease-in-out infinite;
+            }
+
+            main {
+                max-width: 700px;
+                margin: 0 auto;
+                padding: 24px 16px;
+            }
+
+            .cartao {
+            background: var(--cartao);
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .cartao h2 {
+            color: var(--ouro);
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin: 12px 0 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--borda);
+            border-radius: 8px;
+            background: var(--fundo);
+            color: var(--texto);
+            font-size: 16px;
+        }
+
+        .botao-salvar {
+            width: 100%;
+            margin-top: 16px;
+            padding: 12px;
+            border: 0;
+            border-radius: 8px;
+            background: var(--ouro);
+            color: var(--fundo);
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .peca {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            background: var(--cartao);
+            border: 1px solid var(--borda);
+            border-radius: 10px;
+        }
+
+        .peca p {
+            margin: 4px 0 0;
+            color: var(--cinza);
+        }
+
+        .peca strong {
+            color: var(--ouro);
+            white-space: nowrap;
+        }
+
+        .mensagem-vazia {
+            color: var(--cinza);
+        }
+
+                .grade {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .resumo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .resumo div {
+            padding: 14px;
+            background: var(--cartao);
+            border: 1px solid var(--borda);
+            border-radius: 10px;
+        }
+
+        .resumo strong {
+            display: block;
+            margin-top: 6px;
+            color: var(--ouro);
+        }
+
+        .linha-venda {
+            margin-bottom: 10px;
+            padding: 14px;
+            background: var(--cartao);
+            border: 1px solid var(--borda);
+            border-radius: 10px;
+        }
+
+        .linha-venda p {
+            margin: 5px 0;
+        }
+
+        .pendente {
+            color: #ffb4a9;
+        }
+
+        .recebida {
+            color: var(--verde);
+        }
+
+        .botao-pequeno {
+            width: auto;
+            margin-top: 8px;
+            padding: 8px 12px;
+            border: 0;
+            border-radius: 7px;
+            background: var(--ouro);
+            color: var(--fundo);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media (min-width: 700px) {
+            .grade {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+                /* Formulários e botões */
+        .cartao {
+            background: var(--cartao);
+            border: 1px solid var(--borda);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #3a3a3a;
+            border-radius: 10px;
+            background: var(--fundo);
+            color: var(--texto);
+            font-size: 16px;
+            margin-bottom: 14px;
+            color-scheme: dark;
+        }
+
+        input[type="file"]::file-selector-button {
+            background: var(--ouro);
+            color: #0b0b0b;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-right: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: var(--ouro);
+            color: #0b0b0b;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: var(--ouro-escuro);
+        }
+
+        .secundario {
+            background: transparent;
+            color: var(--ouro);
+            border: 1px solid var(--ouro);
+            margin-top: 8px;
+        }
+
+        .secundario:hover {
+            background: #2a2a2a;
+        }
+
+        .perigo {
+            background: var(--vermelho);
+            color: var(--texto);
+        }
+
+        .perigo:hover {
+            background: #5c1f1f;
+        }
+
+        .mini {
+            width: auto;
+            padding: 7px 12px;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .aviso {
+            color: var(--ouro);
+            font-weight: bold;
+        }
+
+        .vazio {
+            color: var(--cinza);
+        }
+
+        /* Cabeçalho */
+        .cabecalho {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--borda);
+        }
+
+        .cabecalho-nome {
+            text-align: right;
+            line-height: 1.2;
+        }
+
+        .cabecalho-nome strong {
+            display: block;
+            color: var(--ouro);
+            letter-spacing: 3px;
+            font-size: 15px;
+        }
+
+        .cabecalho-nome small {
+            color: var(--cinza);
+            letter-spacing: 4px;
+            font-size: 9px;
+        }
+
+        /* Telas */
+        .tela {
+            display: none;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 16px 60px;
+        }
+
+        .tela.ativa {
+            display: block;
+        }
+
+        .duas-colunas {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        /* Listas */
+        .lista {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .item {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            background: var(--cartao);
+            border: 1px solid var(--borda);
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+        }
+
+        .item.clicavel {
+            cursor: pointer;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .item.clicavel:hover {
+            border-color: var(--ouro);
+            transform: translateY(-1px);
+        }
+
+        .avatar {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--ouro);
+            color: #0b0b0b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .item-foto {
+            flex-shrink: 0;
+            width: 52px;
+            height: 52px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: var(--fundo);
+        }
+
+        .item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .item-titulo {
+            font-weight: bold;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .item-sub {
+            color: var(--cinza);
+            font-size: 13px;
+            margin-top: 2px;
+        }
+
+        .item-valor {
+            color: var(--ouro);
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .item-valor.em-dia {
+            color: var(--verde);
+        }
+
+        .item-acoes {
+            flex-basis: 100%;
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+        }
+
+        /* Resumos */
+        .resumo {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .resumo-card {
+            background: var(--cartao);
+            border: 1px solid var(--borda);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 20px;
+        }
+
+        .resumo .resumo-card {
+            margin-bottom: 0;
+        }
+
+        .resumo-card span {
+            display: block;
+            color: var(--cinza);
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .resumo-card strong {
+            color: var(--ouro);
+            font-size: 20px;
+        }
+
+        .acoes-ficha {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+                /* Catálogo de peças */
+        .previa {
+            width: 100%;
+            max-height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+
+        .grade-pecas {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .peca {
+            background: var(--cartao);
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            padding: 10px;
+        }
+
+        .peca img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .peca h3 {
+            font-size: 14px;
+            margin: 8px 0 4px;
+        }
+
+        .peca .preco {
+            color: var(--ouro);
+            font-weight: bold;
+            margin: 0 0 8px;
+        }
+
+        .acoes {
+            display: flex;
+            gap: 6px;
+        }
+
+        .acoes button {
+            padding: 8px;
+            font-size: 13px;
+        }
+
+        /* Gráfico de vendas */
+        .grafico {
+            display: flex;
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .coluna-mes {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .barras {
+            width: 100%;
+            height: 150px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .barra {
+            width: 40%;
+            max-width: 28px;
+            min-height: 2px;
+            border-radius: 6px 6px 0 0;
+            transform-origin: bottom;
+            animation: crescer 0.6s ease-out;
+        }
+
+        .barra.vendido {
+            background: var(--ouro-escuro);
+        }
+
+        .barra.recebido {
+            background: var(--ouro-claro);
+        }
+
+        @keyframes crescer {
+            from {
+                transform: scaleY(0);
+            }
+
+            to {
+                transform: scaleY(1);
+            }
+        }
+
+        .rotulo-mes {
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--cinza);
+        }
+
+        .legenda {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--cinza);
+        }
+
+        .legenda i {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            margin-right: 6px;
+        }
+
+        .cor-vendido {
+            background: var(--ouro-escuro);
+        }
+
+        .cor-recebido {
+            background: var(--ouro-claro);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 14px;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            text-align: right;
+            padding: 8px 6px;
+            border-bottom: 1px solid var(--borda);
+        }
+
+        th:first-child,
+        td:first-child {
+            text-align: left;
+        }
+
+        th {
+            color: var(--cinza);
+            font-weight: normal;
+        }
+
+        /* Menu para celular */
+        .botao-menu {
+            position: fixed;
+            top: 8px;
+            left: 12px;
+            width: 44px;
+            padding: 8px 0;
+            font-size: 22px;
+            background: var(--cartao);
+            color: var(--ouro);
+            border: 1px solid var(--ouro);
+            z-index: 5;
+        }
+
+        .botao-menu:hover {
+            background: #2a2a2a;
+        }
+
+        .lateral {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 240px;
+            padding: 24px 12px;
+            background: var(--cartao);
+            border-right: 1px solid #3a3a3a;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 20;
+        }
+
+        .lateral.aberta {
+            transform: translateX(0);
+        }
+
+        .lateral-titulo {
+            color: var(--ouro);
+            font-size: 12px;
+            letter-spacing: 4px;
+            margin: 0 0 12px 14px;
+        }
+
+        .lateral button {
+            background: transparent;
+            color: var(--texto);
+            text-align: left;
+            margin-bottom: 6px;
+            border-left: 3px solid transparent;
+        }
+
+        .lateral button:hover {
+            background: #2a2a2a;
+            color: var(--ouro);
+        }
+
+        .lateral button.ativo {
+            background: #2a2a2a;
+            color: var(--ouro);
+            border-left-color: var(--ouro);
+        }
+
+        .sombra {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 15;
+        }
+
+        .sombra.visivel {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Ajustes para notebook */
+        @media (min-width: 800px) {
+            body {
+                padding-left: 240px;
+            }
+
+            .lateral {
+                transform: none;
+            }
+
+            .botao-menu,
+            .sombra {
+                display: none;
+            }
+
+            .tela {
+                padding: 24px 32px 60px;
+            }
+
+            .duas-colunas {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .resumo {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .grade-pecas {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .item-acoes {
+                flex-basis: auto;
+            }
+        }
+
+                /* Catálogo de peças */
+        .previa {
+            width: 100%;
+            max-height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+
+        .grade-pecas {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .peca {
+            background: var(--cartao);
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            padding: 10px;
+        }
+
+        .peca img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .peca h3 {
+            font-size: 14px;
+            margin: 8px 0 4px;
+        }
+
+        .peca .preco {
+            color: var(--ouro);
+            font-weight: bold;
+            margin: 0 0 8px;
+        }
+
+        .acoes {
+            display: flex;
+            gap: 6px;
+        }
+
+        .acoes button {
+            padding: 8px;
+            font-size: 13px;
+        }
+
+        /* Gráfico de vendas */
+        .grafico {
+            display: flex;
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .coluna-mes {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .barras {
+            width: 100%;
+            height: 150px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .barra {
+            width: 40%;
+            max-width: 28px;
+            min-height: 2px;
+            border-radius: 6px 6px 0 0;
+            transform-origin: bottom;
+            animation: crescer 0.6s ease-out;
+        }
+
+        .barra.vendido {
+            background: var(--ouro-escuro);
+        }
+
+        .barra.recebido {
+            background: var(--ouro-claro);
+        }
+
+        @keyframes crescer {
+            from {
+                transform: scaleY(0);
+            }
+
+            to {
+                transform: scaleY(1);
+            }
+        }
+
+        .rotulo-mes {
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--cinza);
+        }
+
+        .legenda {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--cinza);
+        }
+
+        .legenda i {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            margin-right: 6px;
+        }
+
+        .cor-vendido {
+            background: var(--ouro-escuro);
+        }
+
+        .cor-recebido {
+            background: var(--ouro-claro);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 14px;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            text-align: right;
+            padding: 8px 6px;
+            border-bottom: 1px solid var(--borda);
+        }
+
+        th:first-child,
+        td:first-child {
+            text-align: left;
+        }
+
+        th {
+            color: var(--cinza);
+            font-weight: normal;
+        }
+
+        /* Menu para celular */
+        .botao-menu {
+            position: fixed;
+            top: 8px;
+            left: 12px;
+            width: 44px;
+            padding: 8px 0;
+            font-size: 22px;
+            background: var(--cartao);
+            color: var(--ouro);
+            border: 1px solid var(--ouro);
+            z-index: 5;
+        }
+
+        .botao-menu:hover {
+            background: #2a2a2a;
+        }
+
+        .lateral {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 240px;
+            padding: 24px 12px;
+            background: var(--cartao);
+            border-right: 1px solid #3a3a3a;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 20;
+        }
+
+        .lateral.aberta {
+            transform: translateX(0);
+        }
+
+        .lateral-titulo {
+            color: var(--ouro);
+            font-size: 12px;
+            letter-spacing: 4px;
+            margin: 0 0 12px 14px;
+        }
+
+        .lateral button {
+            background: transparent;
+            color: var(--texto);
+            text-align: left;
+            margin-bottom: 6px;
+            border-left: 3px solid transparent;
+        }
+
+        .lateral button:hover {
+            background: #2a2a2a;
+            color: var(--ouro);
+        }
+
+        .lateral button.ativo {
+            background: #2a2a2a;
+            color: var(--ouro);
+            border-left-color: var(--ouro);
+        }
+
+        .sombra {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 15;
+        }
+
+        .sombra.visivel {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Ajustes para notebook */
+        @media (min-width: 800px) {
+            body {
+                padding-left: 240px;
+            }
+
+            .lateral {
+                transform: none;
+            }
+
+            .botao-menu,
+            .sombra {
+                display: none;
+            }
+
+            .tela {
+                padding: 24px 32px 60px;
+            }
+
+            .duas-colunas {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .resumo {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .grade-pecas {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .item-acoes {
+                flex-basis: auto;
+            }
+        }
+
+                .diamante,
+        .diamante:hover {
+            width: auto;
+            padding: 0;
+            background: none;
+            border: none;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        </style>
+    </head>
+
+    <body>
+
+    <button class="botao-menu" id="botao-menu" type="button" aria-label="Abrir menu">☰</button>
+
+    <div class="sombra" id="sombra"></div>
+
+    <aside class="lateral" id="lateral">
+        <p class="lateral-titulo">MENU</p>
+        <button type="button" data-tela="tela-adicionar">Adicionar cliente</button>
+        <button type="button" data-tela="tela-clientes">Clientes</button>
+        <button type="button" data-tela="tela-pecas">Peças</button>
+        <button type="button" data-tela="tela-vendas">Vendas</button>
+        <button type="button" data-tela="tela-receber">A receber</button>
+    </aside>
+
+    <div class="abertura">
+        <button class="diamante" type="button" aria-label="Abrir o aplicativo">
+            <svg viewBox="0 0 100 80" width="120" height="96"
+                 fill="none" stroke="#c9a24a" stroke-width="2">
+                <polygon points="25,5 75,5 98,28 50,75 2,28"/>
+                <line x1="2" y1="28" x2="98" y2="28"/>
+                <line x1="25" y1="5" x2="38" y2="28"/>
+                <line x1="75" y1="5" x2="62" y2="28"/>
+                <line x1="38" y1="28" x2="50" y2="75"/>
+                <line x1="62" y1="28" x2="50" y2="75"/>
+            </svg>
+        </button>
+        <p class="marca">SENHORA</p>
+        <p class="sub">SEMI JOIAS</p>
+    </div>
+
+    <header class="cabecalho">
+        <div class="cabecalho-nome">
+            <strong>SENHORA</strong>
+            <small>SEMI JOIAS</small>
+        </div>
+        <svg viewBox="0 0 100 80" width="30" height="24"
+             fill="none" stroke="#c9a24a" stroke-width="3">
+            <polygon points="25,5 75,5 98,28 50,75 2,28"/>
+            <line x1="2" y1="28" x2="98" y2="28"/>
+            <line x1="25" y1="5" x2="38" y2="28"/>
+            <line x1="75" y1="5" x2="62" y2="28"/>
+            <line x1="38" y1="28" x2="50" y2="75"/>
+            <line x1="62" y1="28" x2="50" y2="75"/>
+        </svg>
+    </header>
+
+    <!-- ===== ADICIONAR CLIENTE ===== -->
+    <section id="tela-adicionar" class="tela ativa">
+        <h2>Adicionar cliente</h2>
+
+        <div class="duas-colunas">
+            <div>
+                <form class="cartao" id="form-cliente">
+                    <label for="nome-cliente">Nome do cliente</label>
+                    <input id="nome-cliente" type="text" placeholder="Ex.: Maria">
+                    <button type="submit">Adicionar cliente</button>
+                </form>
+                <p id="aviso-cliente" class="aviso" hidden></p>
+            </div>
+
+            <div>
+                <h3 id="titulo-adicionar">Clientes cadastradas</h3>
+                <p class="vazio" id="vazio-adicionar">Nenhuma cliente cadastrada ainda.</p>
+                <ul class="lista" id="lista-adicionar"></ul>
+            </div>
+        </div>
+    </section>
+        <!-- ===== CLIENTES ===== -->
+    <section id="tela-clientes" class="tela">
+        <h2>Clientes</h2>
+        <input id="busca-cliente" type="search" placeholder="Buscar cliente...">
+        <p class="vazio" id="sem-clientes">Nenhuma cliente cadastrada ainda.</p>
+        <ul class="lista" id="lista-clientes"></ul>
+    </section>
+
+    <!-- ===== FICHA DA CLIENTE ===== -->
+    <section id="tela-ficha" class="tela">
+        <button type="button" id="voltar-clientes" class="mini secundario">← Voltar</button>
+        <h2 id="ficha-nome"></h2>
+
+        <div class="acoes-ficha">
+            <button type="button" id="editar-cliente" class="mini secundario">Editar nome</button>
+            <button type="button" id="excluir-cliente" class="mini perigo">Excluir cliente</button>
+        </div>
+
+        <div class="resumo">
+            <div class="resumo-card"><span>Peças</span><strong id="ficha-qtd">0</strong></div>
+            <div class="resumo-card"><span>Total das peças</span><strong id="ficha-total">R$ 0,00</strong></div>
+            <div class="resumo-card"><span>Já pagou</span><strong id="ficha-pago">R$ 0,00</strong></div>
+            <div class="resumo-card"><span>Falta pagar</span><strong id="ficha-falta">R$ 0,00</strong></div>
+        </div>
+
+        <div class="duas-colunas">
+            <div>
+                <form class="cartao" id="form-peca-cliente">
+                    <h3>Anotar peça</h3>
+
+                    <label for="escolher-catalogo">Escolher do catálogo (opcional)</label>
+                    <select id="escolher-catalogo"></select>
+
+                    <label for="foto-peca-cliente">Foto da peça</label>
+                    <input id="foto-peca-cliente" type="file" accept="image/*">
+                    <img id="previa-peca-cliente" class="previa" alt="Prévia da foto" hidden>
+
+                    <label for="nome-peca-cliente">Nome da peça</label>
+                    <input id="nome-peca-cliente" type="text" placeholder="Ex.: Colar folheado">
+
+                    <label for="preco-peca-cliente">Valor (R$)</label>
+                    <input id="preco-peca-cliente" type="number" min="0" step="0.01"
+                           inputmode="decimal" placeholder="Ex.: 35.00">
+
+                    <label for="data-peca-cliente">Data</label>
+                    <input id="data-peca-cliente" type="date">
+
+                    <button type="submit" id="botao-peca-cliente">Anotar peça</button>
+                    <button type="button" id="cancelar-peca-cliente" class="secundario" hidden>
+                        Cancelar edição
+                    </button>
+                </form>
+
+                <h3>Peças desta cliente</h3>
+                <p class="vazio" id="vazio-pecas-cliente">Nenhuma peça anotada ainda.</p>
+                <ul class="lista" id="lista-pecas-cliente"></ul>
+            </div>
+
+            <div>
+                <form class="cartao" id="form-pagamento">
+                    <h3>Anotar pagamento</h3>
+
+                    <label for="valor-pagamento">Valor pago (R$)</label>
+                    <input id="valor-pagamento" type="number" min="0.01" step="0.01"
+                           inputmode="decimal" placeholder="Ex.: 50.00">
+
+                    <label for="data-pagamento">Data</label>
+                    <input id="data-pagamento" type="date">
+
+                    <button type="submit" id="botao-pagamento">Anotar pagamento</button>
+                    <button type="button" id="cancelar-pagamento" class="secundario" hidden>
+                        Cancelar edição
+                    </button>
+                </form>
+
+                <h3>Pagamentos</h3>
+                <p class="vazio" id="vazio-pagamentos">Nenhum pagamento anotado ainda.</p>
+                <ul class="lista" id="lista-pagamentos"></ul>
+            </div>
+        </div>
+    </section>
+        <!-- ===== PEÇAS (CATÁLOGO) ===== -->
+    <section id="tela-pecas" class="tela">
+        <h2>Peças</h2>
+
+        <form class="cartao" id="form-peca">
+            <label for="foto-peca">Foto da peça</label>
+            <input id="foto-peca" type="file" accept="image/*">
+            <img id="previa-peca" class="previa" alt="Prévia da foto" hidden>
+
+            <label for="nome-peca">Nome da peça</label>
+            <input id="nome-peca" type="text" placeholder="Ex.: Brinco ponto de luz">
+
+            <label for="preco-peca">Valor (R$)</label>
+            <input id="preco-peca" type="number" min="0" step="0.01"
+                   inputmode="decimal" placeholder="Ex.: 35.00">
+
+            <button type="submit" id="botao-peca">Salvar peça</button>
+            <button type="button" id="cancelar-edicao" class="secundario" hidden>
+                Cancelar edição
+            </button>
+        </form>
+
+        <p class="vazio" id="sem-pecas">Nenhuma peça cadastrada ainda.</p>
+        <div id="lista-pecas" class="grade-pecas"></div>
+    </section>
+
+    <!-- ===== VENDAS ===== -->
+    <section id="tela-vendas" class="tela">
+        <h2>Vendas</h2>
+
+        <div class="resumo">
+            <div class="resumo-card">
+                <span>Vendido no mês</span>
+                <strong id="vendido-mes">R$ 0,00</strong>
+            </div>
+            <div class="resumo-card">
+                <span>Recebido no mês</span>
+                <strong id="recebido-mes">R$ 0,00</strong>
+            </div>
+            <div class="resumo-card">
+                <span>Total vendido</span>
+                <strong id="vendido-total">R$ 0,00</strong>
+            </div>
+            <div class="resumo-card">
+                <span>Falta receber</span>
+                <strong id="vendas-falta">R$ 0,00</strong>
+            </div>
+        </div>
+
+        <div class="cartao">
+            <h3>Últimos 6 meses</h3>
+            <div class="grafico" id="grafico"></div>
+            <div class="legenda">
+                <span><i class="cor-vendido"></i>Vendido</span>
+                <span><i class="cor-recebido"></i>Recebido</span>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mês</th>
+                        <th>Vendido</th>
+                        <th>Recebido</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-meses"></tbody>
+            </table>
+        </div>
+
+        <h3>Últimas vendas</h3>
+        <p class="vazio" id="vazio-vendas">Nenhuma venda anotada ainda.</p>
+        <ul class="lista" id="lista-vendas"></ul>
+    </section>
+
+    <!-- ===== A RECEBER ===== -->
+    <section id="tela-receber" class="tela">
+        <h2>A receber</h2>
+
+        <div class="resumo-card">
+            <span>Total que falta receber</span>
+            <strong id="total-receber">R$ 0,00</strong>
+        </div>
+
+        <h3>Clientes com valor em aberto</h3>
+        <p class="vazio" id="vazio-receber">Ninguém com valor em aberto.</p>
+        <ul class="lista" id="lista-receber"></ul>
+    </section>
+
+
+        <script>
+        // ===== Abertura =====
+        const abertura = document.querySelector('.abertura');
+        const diamante = document.querySelector('.diamante');
+
+        diamante.addEventListener('click', function () {
+            abertura.classList.add('escondida');
+        });
+
+        // ===== Menu lateral (celular) =====
+        const botaoMenu = document.getElementById('botao-menu');
+        const lateral = document.getElementById('lateral');
+        const sombra = document.getElementById('sombra');
+
+        function abrirMenu() {
+            lateral.classList.add('aberta');
+            sombra.classList.add('visivel');
+        }
+
+        function fecharMenu() {
+            lateral.classList.remove('aberta');
+            sombra.classList.remove('visivel');
+        }
+
+        botaoMenu.addEventListener('click', abrirMenu);
+        sombra.addEventListener('click', fecharMenu);
+
+        // ===== Trocar de tela =====
+        const telas = document.querySelectorAll('.tela');
+        const botoesMenu = document.querySelectorAll('.lateral button');
+
+        function mostrarTela(id) {
+            telas.forEach(function (tela) {
+                tela.classList.remove('ativa');
+            });
+            document.getElementById(id).classList.add('ativa');
+
+            const destaque = id === 'tela-ficha' ? 'tela-clientes' : id;
+            botoesMenu.forEach(function (botao) {
+                botao.classList.toggle('ativo', botao.dataset.tela === destaque);
+            });
+
+            window.scrollTo(0, 0);
+        }
+
+        botoesMenu.forEach(function (botao) {
+            botao.addEventListener('click', function () {
+                mostrarTela(botao.dataset.tela);
+                fecharMenu();
+            });
+        });
+
+        // ===== Ajudantes =====
+        function criar(tag, classe, texto) {
+            const elemento = document.createElement(tag);
+            if (classe) elemento.className = classe;
+            if (texto !== undefined) elemento.textContent = texto;
+            return elemento;
+        }
+
+        function carregarLista(chave) {
+            try {
+                return JSON.parse(localStorage.getItem(chave)) || [];
+            } catch (erro) {
+                return [];
+            }
+        }
+
+        function formatarReais(valor) {
+            return Number(valor).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+        }
+
+        function arredondar(numero) {
+            return Math.round(numero * 100) / 100;
+        }
+
+        function somar(lista, campo) {
+            return arredondar(lista.reduce(function (total, item) {
+                return total + item[campo];
+            }, 0));
+        }
+
+        function doisDigitos(numero) {
+            return String(numero).padStart(2, '0');
+        }
+
+        function hoje() {
+            const agora = new Date();
+            return agora.getFullYear() + '-' +
+                doisDigitos(agora.getMonth() + 1) + '-' +
+                doisDigitos(agora.getDate());
+        }
+
+        function formatarData(texto) {
+            if (!texto) return '';
+            const partes = texto.split('-');
+            return partes[2] + '/' + partes[1] + '/' + partes[0];
+        }
+
+        function mostrarPrevia(imagem, foto) {
+            if (foto) {
+                imagem.src = foto;
+                imagem.hidden = false;
+            } else {
+                imagem.hidden = true;
+                imagem.removeAttribute('src');
+            }
+        }
+
+        function reduzirFoto(arquivo) {
+            return new Promise(function (resolver, rejeitar) {
+                const leitor = new FileReader();
+
+                leitor.onload = function () {
+                    const imagem = new Image();
+
+                    imagem.onload = function () {
+                        const maximo = 600;
+                        const escala = Math.min(
+                            1,
+                            maximo / Math.max(imagem.width, imagem.height)
+                        );
+
+                        const quadro = document.createElement('canvas');
+                        quadro.width = Math.round(imagem.width * escala);
+                        quadro.height = Math.round(imagem.height * escala);
+
+                        quadro.getContext('2d').drawImage(
+                            imagem, 0, 0, quadro.width, quadro.height
+                        );
+
+                        resolver(quadro.toDataURL('image/jpeg', 0.7));
+                    };
+
+                    imagem.onerror = rejeitar;
+                    imagem.src = leitor.result;
+                };
+
+                leitor.onerror = rejeitar;
+                leitor.readAsDataURL(arquivo);
+            });
+        }
+
+        // ===== Dados =====
+        function carregarClientes() {
+            const lista = carregarLista('clientes');
+
+            lista.forEach(function (cliente, posicao) {
+                if (!cliente.id) cliente.id = Date.now() + posicao;
+                cliente.pecas = cliente.pecas || [];
+                cliente.pagamentos = cliente.pagamentos || [];
+            });
+
+            return lista;
+        }
+
+        let clientes = carregarClientes();
+        let pecas = carregarLista('pecas');
+
+        function salvarClientes() {
+            try {
+                localStorage.setItem('clientes', JSON.stringify(clientes));
+                return true;
+            } catch (erro) {
+                alert('Não coube no celular. Use fotos menores ou exclua peças antigas.');
+                clientes = carregarClientes();
+                return false;
+            }
+        }
+
+        function salvarPecas() {
+            try {
+                localStorage.setItem('pecas', JSON.stringify(pecas));
+                return true;
+            } catch (erro) {
+                alert('Não coube no celular. Use uma foto menor ou exclua peças antigas.');
+                return false;
+            }
+        }
+
+        function buscarCliente(id) {
+            return clientes.find(function (cliente) {
+                return cliente.id === id;
+            });
+        }
+
+        function totalVendido(cliente) {
+            return somar(cliente.pecas, 'preco');
+        }
+
+        function totalPago(cliente) {
+            return somar(cliente.pagamentos, 'valor');
+        }
+
+        function quantoFalta(cliente) {
+            return arredondar(totalVendido(cliente) - totalPago(cliente));
+        }
+
+                // ===== Linha de cliente (usada em várias listas) =====
+        function linhaCliente(cliente) {
+            const item = criar('li', 'item clicavel');
+            const avatar = criar('div', 'avatar', cliente.nome.charAt(0).toUpperCase());
+
+            const info = criar('div', 'item-info');
+            const quantidade = cliente.pecas.length;
+
+            info.append(
+                criar('div', 'item-titulo', cliente.nome),
+                criar(
+                    'div',
+                    'item-sub',
+                    quantidade + (quantidade === 1 ? ' peça' : ' peças') +
+                    ' • pago ' + formatarReais(totalPago(cliente))
+                )
+            );
+
+            const falta = quantoFalta(cliente);
+            const valor = criar(
+                'div',
+                'item-valor',
+                falta > 0 ? 'Falta ' + formatarReais(falta) : 'Em dia'
+            );
+
+            if (falta <= 0) valor.classList.add('em-dia');
+
+            item.append(avatar, info, valor);
+            item.addEventListener('click', function () {
+                abrirFicha(cliente.id);
+            });
+
+            return item;
+        }
+
+        // ===== Adicionar cliente =====
+        const formCliente = document.getElementById('form-cliente');
+        const campoNome = document.getElementById('nome-cliente');
+        const avisoCliente = document.getElementById('aviso-cliente');
+        const tituloAdicionar = document.getElementById('titulo-adicionar');
+        const vazioAdicionar = document.getElementById('vazio-adicionar');
+        const listaAdicionar = document.getElementById('lista-adicionar');
+
+        function mostrarListaAdicionar() {
+            tituloAdicionar.textContent =
+                'Clientes cadastradas (' + clientes.length + ')';
+            vazioAdicionar.hidden = clientes.length > 0;
+            listaAdicionar.replaceChildren();
+
+            clientes.slice().reverse().forEach(function (cliente) {
+                listaAdicionar.append(linhaCliente(cliente));
+            });
+        }
+
+        formCliente.addEventListener('submit', function (evento) {
+            evento.preventDefault();
+
+            const nome = campoNome.value.trim();
+            if (nome === '') return;
+
+            clientes.push({
+                id: Date.now(),
+                nome: nome,
+                pecas: [],
+                pagamentos: []
+            });
+
+            salvarClientes();
+            atualizarTudo();
+
+            avisoCliente.textContent = 'Cliente adicionada: ' + nome;
+            avisoCliente.hidden = false;
+
+            campoNome.value = '';
+            campoNome.focus();
+        });
+
+        // ===== Lista de clientes =====
+        const campoBuscaCliente = document.getElementById('busca-cliente');
+        const semClientes = document.getElementById('sem-clientes');
+        const listaClientes = document.getElementById('lista-clientes');
+
+        function mostrarClientes() {
+            const termo = campoBuscaCliente.value.trim().toLowerCase();
+            const filtradas = clientes.filter(function (cliente) {
+                return cliente.nome.toLowerCase().includes(termo);
+            });
+
+            semClientes.textContent = clientes.length === 0
+                ? 'Nenhuma cliente cadastrada ainda.'
+                : 'Nenhuma cliente encontrada.';
+            semClientes.hidden = filtradas.length > 0;
+
+            listaClientes.replaceChildren();
+            filtradas.forEach(function (cliente) {
+                listaClientes.append(linhaCliente(cliente));
+            });
+        }
+
+        campoBuscaCliente.addEventListener('input', mostrarClientes);
+
+        // ===== A receber =====
+        const totalReceber = document.getElementById('total-receber');
+        const vazioReceber = document.getElementById('vazio-receber');
+        const listaReceber = document.getElementById('lista-receber');
+
+        function mostrarReceber() {
+            const devedoras = clientes.filter(function (cliente) {
+                return quantoFalta(cliente) > 0;
+            }).sort(function (a, b) {
+                return quantoFalta(b) - quantoFalta(a);
+            });
+
+            const soma = devedoras.reduce(function (total, cliente) {
+                return total + quantoFalta(cliente);
+            }, 0);
+
+            totalReceber.textContent = formatarReais(arredondar(soma));
+            vazioReceber.hidden = devedoras.length > 0;
+            listaReceber.replaceChildren();
+
+            devedoras.forEach(function (cliente) {
+                const item = linhaCliente(cliente);
+                const acoes = criar('div', 'item-acoes');
+                const botao = criar('button', 'mini', '+ Pagamento');
+
+                botao.type = 'button';
+                botao.addEventListener('click', function (evento) {
+                    evento.stopPropagation();
+                    abrirFicha(cliente.id, true);
+                });
+
+                acoes.append(botao);
+                item.append(acoes);
+                listaReceber.append(item);
+            });
+        }
+
+                // ===== Ficha da cliente =====
+        const fichaNome = document.getElementById('ficha-nome');
+        const fichaQtd = document.getElementById('ficha-qtd');
+        const fichaTotal = document.getElementById('ficha-total');
+        const fichaPago = document.getElementById('ficha-pago');
+        const fichaFalta = document.getElementById('ficha-falta');
+        const voltarClientes = document.getElementById('voltar-clientes');
+        const botaoEditarCliente = document.getElementById('editar-cliente');
+        const botaoExcluirCliente = document.getElementById('excluir-cliente');
+
+        const formPecaCliente = document.getElementById('form-peca-cliente');
+        const selectCatalogo = document.getElementById('escolher-catalogo');
+        const campoFotoCliente = document.getElementById('foto-peca-cliente');
+        const previaPecaCliente = document.getElementById('previa-peca-cliente');
+        const campoNomePecaCliente = document.getElementById('nome-peca-cliente');
+        const campoPrecoPecaCliente = document.getElementById('preco-peca-cliente');
+        const campoDataPecaCliente = document.getElementById('data-peca-cliente');
+        const botaoPecaCliente = document.getElementById('botao-peca-cliente');
+        const cancelarPecaCliente = document.getElementById('cancelar-peca-cliente');
+        const vazioPecasCliente = document.getElementById('vazio-pecas-cliente');
+        const listaPecasCliente = document.getElementById('lista-pecas-cliente');
+
+        const formPagamento = document.getElementById('form-pagamento');
+        const campoValorPagamento = document.getElementById('valor-pagamento');
+        const campoDataPagamento = document.getElementById('data-pagamento');
+        const botaoPagamento = document.getElementById('botao-pagamento');
+        const cancelarPagamento = document.getElementById('cancelar-pagamento');
+        const vazioPagamentos = document.getElementById('vazio-pagamentos');
+        const listaPagamentos = document.getElementById('lista-pagamentos');
+
+        let clienteAtualId = null;
+        let editandoPecaClienteId = null;
+        let editandoPagamentoId = null;
+        let fotoCliente = '';
+
+        function preencherCatalogo() {
+            selectCatalogo.replaceChildren(new Option('— nenhuma —', ''));
+
+            pecas.forEach(function (peca) {
+                selectCatalogo.append(
+                    new Option(
+                        peca.nome + ' — ' + formatarReais(peca.preco),
+                        peca.id
+                    )
+                );
+            });
+        }
+
+        function limparFormPecaCliente() {
+            formPecaCliente.reset();
+            fotoCliente = '';
+            mostrarPrevia(previaPecaCliente, '');
+            campoDataPecaCliente.value = hoje();
+            editandoPecaClienteId = null;
+            botaoPecaCliente.textContent = 'Anotar peça';
+            cancelarPecaCliente.hidden = true;
+        }
+
+        function limparFormPagamento() {
+            formPagamento.reset();
+            campoDataPagamento.value = hoje();
+            editandoPagamentoId = null;
+            botaoPagamento.textContent = 'Anotar pagamento';
+            cancelarPagamento.hidden = true;
+        }
+
+        function abrirFicha(id, focarPagamento) {
+            clienteAtualId = id;
+            limparFormPecaCliente();
+            limparFormPagamento();
+            mostrarFicha();
+            mostrarTela('tela-ficha');
+
+            if (focarPagamento) campoValorPagamento.focus();
+        }
+
+        function mostrarFicha() {
+            const cliente = buscarCliente(clienteAtualId);
+            if (!cliente) return;
+
+            fichaNome.textContent = cliente.nome;
+            fichaQtd.textContent = cliente.pecas.length;
+            fichaTotal.textContent = formatarReais(totalVendido(cliente));
+            fichaPago.textContent = formatarReais(totalPago(cliente));
+            fichaFalta.textContent =
+                formatarReais(Math.max(0, quantoFalta(cliente)));
+
+            // Peças da cliente
+            vazioPecasCliente.hidden = cliente.pecas.length > 0;
+            listaPecasCliente.replaceChildren();
+
+            cliente.pecas.forEach(function (peca) {
+                const item = criar('li', 'item');
+
+                if (peca.foto) {
+                    const foto = criar('img', 'item-foto');
+                    foto.src = peca.foto;
+                    foto.alt = peca.nome;
+                    item.append(foto);
+                }
+
+                const info = criar('div', 'item-info');
+                info.append(
+                    criar('div', 'item-titulo', peca.nome),
+                    criar('div', 'item-sub', formatarData(peca.data))
+                );
+
+                const valor = criar(
+                    'div',
+                    'item-valor',
+                    formatarReais(peca.preco)
+                );
+
+                const acoes = criar('div', 'item-acoes');
+
+                const editar = criar('button', 'mini', 'Editar');
+                editar.type = 'button';
+                editar.addEventListener('click', function () {
+                    editarPecaDaCliente(cliente.id, peca.id);
+                });
+
+                const excluir = criar('button', 'mini perigo', 'Excluir');
+                excluir.type = 'button';
+                excluir.addEventListener('click', function () {
+                    excluirPecaDaCliente(peca.id);
+                });
+
+                acoes.append(editar, excluir);
+                item.append(info, valor, acoes);
+                listaPecasCliente.append(item);
+            });
+
+            // Pagamentos da cliente
+            vazioPagamentos.hidden = cliente.pagamentos.length > 0;
+            listaPagamentos.replaceChildren();
+
+            cliente.pagamentos.forEach(function (pagamento) {
+                const item = criar('li', 'item');
+                const info = criar('div', 'item-info');
+
+                info.append(
+                    criar('div', 'item-titulo', formatarReais(pagamento.valor)),
+                    criar('div', 'item-sub', formatarData(pagamento.data))
+                );
+
+                const acoes = criar('div', 'item-acoes');
+
+                const editar = criar('button', 'mini', 'Editar');
+                editar.type = 'button';
+                editar.addEventListener('click', function () {
+                    editarPagamento(pagamento.id);
+                });
+
+                const excluir = criar('button', 'mini perigo', 'Excluir');
+                excluir.type = 'button';
+                excluir.addEventListener('click', function () {
+                    excluirPagamento(pagamento.id);
+                });
+
+                acoes.append(editar, excluir);
+                item.append(info, acoes);
+                listaPagamentos.append(item);
+            });
+        }
+
+        voltarClientes.addEventListener('click', function () {
+            mostrarTela('tela-clientes');
+        });
+
+        botaoEditarCliente.addEventListener('click', function () {
+            const cliente = buscarCliente(clienteAtualId);
+            if (!cliente) return;
+
+            const novoNome = prompt('Novo nome da cliente:', cliente.nome);
+            if (novoNome === null) return;
+
+            const nome = novoNome.trim();
+            if (nome === '') return;
+
+            cliente.nome = nome;
+            salvarClientes();
+            atualizarTudo();
+        });
+
+        botaoExcluirCliente.addEventListener('click', function () {
+            if (!confirm('Excluir esta cliente e tudo o que foi anotado nela?')) {
+                return;
+            }
+
+            clientes = clientes.filter(function (cliente) {
+                return cliente.id !== clienteAtualId;
+            });
+
+            salvarClientes();
+            clienteAtualId = null;
+            atualizarTudo();
+            mostrarTela('tela-clientes');
+        });
+
+                // --- Peças da cliente ---
+        campoFotoCliente.addEventListener('change', async function () {
+            const arquivo = campoFotoCliente.files[0];
+            if (!arquivo) return;
+
+            try {
+                fotoCliente = await reduzirFoto(arquivo);
+                mostrarPrevia(previaPecaCliente, fotoCliente);
+            } catch (erro) {
+                alert('Não consegui ler essa foto. Tente outra.');
+            }
+        });
+
+        selectCatalogo.addEventListener('change', function () {
+            const id = Number(selectCatalogo.value);
+            const peca = pecas.find(function (p) {
+                return p.id === id;
+            });
+
+            if (!peca) return;
+
+            campoNomePecaCliente.value = peca.nome;
+            campoPrecoPecaCliente.value = peca.preco;
+            fotoCliente = peca.foto || '';
+            mostrarPrevia(previaPecaCliente, fotoCliente);
+        });
+
+        function editarPecaDaCliente(clienteId, pecaId) {
+            abrirFicha(clienteId);
+
+            const cliente = buscarCliente(clienteId);
+            const peca = cliente.pecas.find(function (p) {
+                return p.id === pecaId;
+            });
+
+            if (!peca) return;
+
+            editandoPecaClienteId = pecaId;
+            campoNomePecaCliente.value = peca.nome;
+            campoPrecoPecaCliente.value = peca.preco;
+            campoDataPecaCliente.value = peca.data || hoje();
+            fotoCliente = peca.foto || '';
+            mostrarPrevia(previaPecaCliente, fotoCliente);
+
+            botaoPecaCliente.textContent = 'Salvar alterações';
+            cancelarPecaCliente.hidden = false;
+            formPecaCliente.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function excluirPecaDaCliente(pecaId) {
+            if (!confirm('Excluir esta peça da cliente?')) return;
+
+            const cliente = buscarCliente(clienteAtualId);
+            cliente.pecas = cliente.pecas.filter(function (p) {
+                return p.id !== pecaId;
+            });
+
+            salvarClientes();
+            atualizarTudo();
+
+            if (editandoPecaClienteId === pecaId) {
+                limparFormPecaCliente();
+            }
+        }
+
+        formPecaCliente.addEventListener('submit', function (evento) {
+            evento.preventDefault();
+
+            const cliente = buscarCliente(clienteAtualId);
+            if (!cliente) return;
+
+            const nome = campoNomePecaCliente.value.trim();
+            if (nome === '') return;
+
+            const dados = {
+                nome: nome,
+                preco: Number(campoPrecoPecaCliente.value) || 0,
+                foto: fotoCliente,
+                data: campoDataPecaCliente.value || hoje()
+            };
+
+            if (editandoPecaClienteId === null) {
+                dados.id = Date.now();
+                cliente.pecas.push(dados);
+            } else {
+                const peca = cliente.pecas.find(function (p) {
+                    return p.id === editandoPecaClienteId;
+                });
+                Object.assign(peca, dados);
+            }
+
+            const salvou = salvarClientes();
+            atualizarTudo();
+
+            if (salvou) limparFormPecaCliente();
+        });
+
+        cancelarPecaCliente.addEventListener('click', limparFormPecaCliente);
+
+        // --- Pagamentos da cliente ---
+        function editarPagamento(pagamentoId) {
+            const cliente = buscarCliente(clienteAtualId);
+            const pagamento = cliente.pagamentos.find(function (p) {
+                return p.id === pagamentoId;
+            });
+
+            if (!pagamento) return;
+
+            editandoPagamentoId = pagamentoId;
+            campoValorPagamento.value = pagamento.valor;
+            campoDataPagamento.value = pagamento.data || hoje();
+
+            botaoPagamento.textContent = 'Salvar alterações';
+            cancelarPagamento.hidden = false;
+            formPagamento.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function excluirPagamento(pagamentoId) {
+            if (!confirm('Excluir este pagamento?')) return;
+
+            const cliente = buscarCliente(clienteAtualId);
+            cliente.pagamentos = cliente.pagamentos.filter(function (p) {
+                return p.id !== pagamentoId;
+            });
+
+            salvarClientes();
+            atualizarTudo();
+
+            if (editandoPagamentoId === pagamentoId) {
+                limparFormPagamento();
+            }
+        }
+
+        formPagamento.addEventListener('submit', function (evento) {
+            evento.preventDefault();
+
+            const cliente = buscarCliente(clienteAtualId);
+            if (!cliente) return;
+
+            const valor = Number(campoValorPagamento.value);
+            if (!(valor > 0)) return;
+
+            const dados = {
+                valor: valor,
+                data: campoDataPagamento.value || hoje()
+            };
+
+            if (editandoPagamentoId === null) {
+                dados.id = Date.now();
+                cliente.pagamentos.push(dados);
+            } else {
+                const pagamento = cliente.pagamentos.find(function (p) {
+                    return p.id === editandoPagamentoId;
+                });
+                Object.assign(pagamento, dados);
+            }
+
+            const salvou = salvarClientes();
+            atualizarTudo();
+
+            if (salvou) limparFormPagamento();
+        });
+
+        cancelarPagamento.addEventListener('click', limparFormPagamento);
+
+                // ===== Vendas =====
+        const NOMES_MESES = [
+            'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+            'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+        ];
+
+        const vendidoMes = document.getElementById('vendido-mes');
+        const recebidoMes = document.getElementById('recebido-mes');
+        const vendidoTotal = document.getElementById('vendido-total');
+        const vendasFalta = document.getElementById('vendas-falta');
+        const grafico = document.getElementById('grafico');
+        const tabelaMeses = document.getElementById('tabela-meses');
+        const vazioVendas = document.getElementById('vazio-vendas');
+        const listaVendas = document.getElementById('lista-vendas');
+
+        function chaveDoMes(data) {
+            return data.slice(0, 7);
+        }
+
+        function somarDoMes(lista, campo, chave) {
+            const doMes = lista.filter(function (item) {
+                return item.data && chaveDoMes(item.data) === chave;
+            });
+
+            return somar(doMes, campo);
+        }
+
+        function mostrarVendas() {
+            const vendas = [];
+            const todasPecas = [];
+            const todosPagamentos = [];
+
+            clientes.forEach(function (cliente) {
+                cliente.pecas.forEach(function (peca) {
+                    vendas.push({ cliente: cliente, peca: peca });
+                    todasPecas.push(peca);
+                });
+
+                cliente.pagamentos.forEach(function (pagamento) {
+                    todosPagamentos.push(pagamento);
+                });
+            });
+
+            const agora = new Date();
+            const mesAtual = agora.getFullYear() + '-' +
+                doisDigitos(agora.getMonth() + 1);
+
+            vendidoMes.textContent = formatarReais(
+                somarDoMes(todasPecas, 'preco', mesAtual)
+            );
+            recebidoMes.textContent = formatarReais(
+                somarDoMes(todosPagamentos, 'valor', mesAtual)
+            );
+            vendidoTotal.textContent = formatarReais(
+                somar(todasPecas, 'preco')
+            );
+
+            const faltaGeral = clientes.reduce(function (total, cliente) {
+                return total + Math.max(0, quantoFalta(cliente));
+            }, 0);
+
+            vendasFalta.textContent = formatarReais(arredondar(faltaGeral));
+
+            // Últimos 6 meses
+            const meses = [];
+
+            for (let i = 5; i >= 0; i--) {
+                const dia = new Date(
+                    agora.getFullYear(),
+                    agora.getMonth() - i,
+                    1
+                );
+
+                const chave = dia.getFullYear() + '-' +
+                    doisDigitos(dia.getMonth() + 1);
+
+                meses.push({
+                    nome: NOMES_MESES[dia.getMonth()],
+                    rotulo: NOMES_MESES[dia.getMonth()] + '/' +
+                        String(dia.getFullYear()).slice(2),
+                    vendido: somarDoMes(todasPecas, 'preco', chave),
+                    recebido: somarDoMes(todosPagamentos, 'valor', chave)
+                });
+            }
+
+            const maior = Math.max(
+                1,
+                ...meses.map(function (mes) {
+                    return Math.max(mes.vendido, mes.recebido);
+                })
+            );
+
+            grafico.replaceChildren();
+
+            meses.forEach(function (mes) {
+                const coluna = criar('div', 'coluna-mes');
+                const barras = criar('div', 'barras');
+
+                const barraVendido = criar('div', 'barra vendido');
+                barraVendido.style.height =
+                    (mes.vendido / maior * 100) + '%';
+                barraVendido.title =
+                    'Vendido: ' + formatarReais(mes.vendido);
+
+                const barraRecebido = criar('div', 'barra recebido');
+                barraRecebido.style.height =
+                    (mes.recebido / maior * 100) + '%';
+                barraRecebido.title =
+                    'Recebido: ' + formatarReais(mes.recebido);
+
+                barras.append(barraVendido, barraRecebido);
+                coluna.append(
+                    barras,
+                    criar('div', 'rotulo-mes', mes.nome)
+                );
+                grafico.append(coluna);
+            });
+
+            tabelaMeses.replaceChildren();
+
+            meses.slice().reverse().forEach(function (mes) {
+                const linha = criar('tr');
+
+                linha.append(
+                    criar('td', '', mes.rotulo),
+                    criar('td', '', formatarReais(mes.vendido)),
+                    criar('td', '', formatarReais(mes.recebido))
+                );
+
+                tabelaMeses.append(linha);
+            });
+
+            // Últimas vendas
+            vendas.sort(function (a, b) {
+                return (b.peca.data || '').localeCompare(a.peca.data || '') ||
+                    b.peca.id - a.peca.id;
+            });
+
+            vazioVendas.hidden = vendas.length > 0;
+            listaVendas.replaceChildren();
+
+            vendas.slice(0, 15).forEach(function (venda) {
+                const item = criar('li', 'item');
+
+                if (venda.peca.foto) {
+                    const foto = criar('img', 'item-foto');
+                    foto.src = venda.peca.foto;
+                    foto.alt = venda.peca.nome;
+                    item.append(foto);
+                }
+
+                const info = criar('div', 'item-info');
+                info.append(
+                    criar('div', 'item-titulo', venda.peca.nome),
+                    criar(
+                        'div',
+                        'item-sub',
+                        venda.cliente.nome + ' • ' +
+                        formatarData(venda.peca.data)
+                    )
+                );
+
+                const valor = criar(
+                    'div',
+                    'item-valor',
+                    formatarReais(venda.peca.preco)
+                );
+
+                const acoes = criar('div', 'item-acoes');
+                const editar = criar('button', 'mini', 'Editar');
+                editar.type = 'button';
+                editar.addEventListener('click', function () {
+                    editarPecaDaCliente(venda.cliente.id, venda.peca.id);
+                });
+
+                acoes.append(editar);
+                item.append(info, valor, acoes);
+                listaVendas.append(item);
+            });
+        }
+                // ===== Peças do catálogo =====
+        const formPeca = document.getElementById('form-peca');
+        const campoFoto = document.getElementById('foto-peca');
+        const previaPeca = document.getElementById('previa-peca');
+        const campoNomePeca = document.getElementById('nome-peca');
+        const campoPreco = document.getElementById('preco-peca');
+        const botaoPeca = document.getElementById('botao-peca');
+        const cancelarEdicao = document.getElementById('cancelar-edicao');
+        const listaPecas = document.getElementById('lista-pecas');
+        const semPecas = document.getElementById('sem-pecas');
+
+        let fotoAtual = '';
+        let editandoId = null;
+
+        campoFoto.addEventListener('change', async function () {
+            const arquivo = campoFoto.files[0];
+            if (!arquivo) return;
+
+            try {
+                fotoAtual = await reduzirFoto(arquivo);
+                mostrarPrevia(previaPeca, fotoAtual);
+            } catch (erro) {
+                alert('Não consegui ler essa foto. Tente outra.');
+            }
+        });
+
+        function limparFormularioPeca() {
+            formPeca.reset();
+            fotoAtual = '';
+            mostrarPrevia(previaPeca, '');
+            editandoId = null;
+            botaoPeca.textContent = 'Salvar peça';
+            cancelarEdicao.hidden = true;
+        }
+
+        function mostrarPecas() {
+            listaPecas.replaceChildren();
+            semPecas.hidden = pecas.length > 0;
+
+            pecas.forEach(function (peca) {
+                const cartao = criar('article', 'peca');
+
+                if (peca.foto) {
+                    const foto = criar('img');
+                    foto.src = peca.foto;
+                    foto.alt = peca.nome;
+                    cartao.append(foto);
+                }
+
+                const nome = criar('h3', '', peca.nome);
+                const preco = criar('p', 'preco', formatarReais(peca.preco));
+                const acoes = criar('div', 'acoes');
+
+                const editar = criar('button', '', 'Editar');
+                editar.type = 'button';
+                editar.addEventListener('click', function () {
+                    editarPeca(peca.id);
+                });
+
+                const excluir = criar('button', 'perigo', 'Excluir');
+                excluir.type = 'button';
+                excluir.addEventListener('click', function () {
+                    excluirPeca(peca.id);
+                });
+
+                acoes.append(editar, excluir);
+                cartao.append(nome, preco, acoes);
+                listaPecas.append(cartao);
+            });
+
+            preencherCatalogo();
+        }
+
+        function editarPeca(id) {
+            const peca = pecas.find(function (p) {
+                return p.id === id;
+            });
+
+            if (!peca) return;
+
+            editandoId = id;
+            campoNomePeca.value = peca.nome;
+            campoPreco.value = peca.preco;
+            fotoAtual = peca.foto || '';
+            mostrarPrevia(previaPeca, fotoAtual);
+
+            botaoPeca.textContent = 'Salvar alterações';
+            cancelarEdicao.hidden = false;
+            formPeca.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function excluirPeca(id) {
+            if (!confirm('Excluir esta peça?')) return;
+
+            pecas = pecas.filter(function (p) {
+                return p.id !== id;
+            });
+
+            salvarPecas();
+            mostrarPecas();
+
+            if (editandoId === id) limparFormularioPeca();
+        }
+
+        formPeca.addEventListener('submit', function (evento) {
+            evento.preventDefault();
+
+            const nome = campoNomePeca.value.trim();
+            if (nome === '') return;
+
+            const preco = Number(campoPreco.value) || 0;
+
+            if (editandoId === null) {
+                pecas.push({
+                    id: Date.now(),
+                    nome: nome,
+                    preco: preco,
+                    foto: fotoAtual
+                });
+            } else {
+                const peca = pecas.find(function (p) {
+                    return p.id === editandoId;
+                });
+
+                peca.nome = nome;
+                peca.preco = preco;
+                peca.foto = fotoAtual;
+            }
+
+            if (!salvarPecas()) {
+                pecas = carregarLista('pecas');
+                mostrarPecas();
+                return;
+            }
+
+            mostrarPecas();
+            limparFormularioPeca();
+        });
+
+        cancelarEdicao.addEventListener('click', limparFormularioPeca);
+
+   // ===== Atualizar todas as telas =====
+        function atualizarTudo() {
+            mostrarListaAdicionar();
+            mostrarClientes();
+            mostrarReceber();
+            mostrarVendas();
+
+            if (buscarCliente(clienteAtualId)) {
+                mostrarFicha();
+            }
+        }
+
+        mostrarPecas();
+        atualizarTudo();
+        mostrarTela('tela-adicionar');
+    </script>
+
+</body>
+
+</html>  
