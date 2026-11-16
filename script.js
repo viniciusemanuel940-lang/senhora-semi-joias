@@ -377,6 +377,7 @@ campoTelefone.addEventListener('input', function () {
         const sugestoesPecas = document.getElementById('sugestoes-pecas');
         const campoPrecoPecaCliente = document.getElementById('preco-peca-cliente');
         const campoDataPecaCliente = document.getElementById('data-peca-cliente');
+        const campoVencimentoPecaCliente = document.getElementById('vencimento-peca-cliente');
         const botaoPecaCliente = document.getElementById('botao-peca-cliente');
         const cancelarPecaCliente = document.getElementById('cancelar-peca-cliente');
         const vazioPecasCliente = document.getElementById('vazio-pecas-cliente');
@@ -607,8 +608,73 @@ const link = 'https://wa.me/55' + numeros +
     '?text=' + encodeURIComponent(mensagem);
 
 window.open(link, '_blank');
+
 });
 
+function montarMensagemVenda(cliente) {
+    const coracao = '\u{1F5A4}';
+    const brilho = '\u{2728}';
+    const dinheiro = '\u{1F4B0}';
+    const calendario = '\u{1F4C5}';
+    const cartao = '\u{1F4B3}';
+    const alerta = '\u{26A0}\u{FE0F}';
+
+    const pecasDeHoje = cliente.pecas.filter(function (peca) {
+        return peca.data === hoje();
+    });
+
+    const linhas = pecasDeHoje.map(function (peca) {
+        return '• ' + peca.nome + ' – ' + formatarReais(peca.preco);
+    });
+
+    const total = somar(pecasDeHoje, 'preco');
+
+        const vencimentos = pecasDeHoje
+        .map(function (peca) { return peca.vencimento; })
+        .filter(function (data) { return data; })
+        .sort();
+
+    const linhaVencimento = vencimentos.length > 0
+     ? calendario + ' Pagamento até: ' + formatarData(vencimentos[0]).slice(0, 5) + '\n\n'
+        : '';
+
+    return coracao + ' REGISTRO DE VENDA ' + coracao + '\n\n' +
+        'Seu pedido ficou registrado!\n\n' +
+        brilho + ' Produtos:\n' + linhas.join('\n') + '\n\n' +
+        dinheiro + ' Total: ' + formatarReais(total) + '\n\n' +
+        linhaVencimento +
+        alerta + ' Em caso de atraso, poderão ser cobrados juros.\n\n' +
+        cartao + ' PIX: 08116241109\n' +
+        'Banco: Mercado Pago\n\n' +
+        coracao + ' Obrigada pela preferência! ' + coracao;
+}
+
+const botaoEnviarVenda = document.getElementById('enviar-venda');
+
+botaoEnviarVenda.addEventListener('click', function () {
+    const cliente = buscarCliente(clienteAtualId);
+    if (!cliente) return;
+
+    const numeros = (cliente.telefone || '').replace(/\D/g, '');
+    if (numeros === '') {
+        alert('Esta cliente não tem telefone cadastrado.');
+        return;
+    }
+
+    const vendeuHoje = cliente.pecas.some(function (peca) {
+        return peca.data === hoje();
+    });
+
+    if (!vendeuHoje) {
+        alert('Nenhuma peça lançada hoje para esta cliente.');
+        return;
+    }
+
+const link = 'https://api.whatsapp.com/send?phone=55' + numeros +
+    '&text=' + encodeURIComponent(montarMensagemVenda(cliente));
+
+    window.open(link, '_blank');
+});
 
 
                 // --- Peças da cliente ---
@@ -705,7 +771,8 @@ window.open(link, '_blank');
                 nome: nome,
                 preco: Number(campoPrecoPecaCliente.value) || 0,
                 foto: fotoCliente,
-                data: campoDataPecaCliente.value || hoje()
+                data: campoDataPecaCliente.value || hoje(),
+                vencimento: campoVencimentoPecaCliente.value
             };
 
             if (editandoPecaClienteId === null) {

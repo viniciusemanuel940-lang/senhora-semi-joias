@@ -98,6 +98,7 @@
             <button type="button" id="editar-cliente" class="mini secundario">Editar nome</button>
             <button type="button" id="excluir-cliente" class="mini perigo">Excluir cliente</button>
             <button type="button" id="cobrar-whatsapp" class="mini">Cobrar no WhatsApp</button>
+            <button type="button" id="enviar-venda" class="mini">Enviar registro da venda</button>
         </div>
 
         <div class="resumo">
@@ -129,6 +130,9 @@
 
                     <label for="data-peca-cliente">Data</label>
                     <input id="data-peca-cliente" type="date">
+
+                    <label for="vencimento-peca-cliente">Data de vencimento</label>
+                    <input id="vencimento-peca-cliente" type="date">
 
                     <button type="submit" id="botao-peca-cliente">Anotar peça</button>
                     <button type="button" id="cancelar-peca-cliente" class="secundario" hidden>
@@ -259,7 +263,7 @@
         <p class="vazio" id="vazio-receber">Ninguém com valor em aberto.</p>
         <ul class="lista" id="lista-receber"></ul>
     </section>
-    <script src="script.js"></script>
+<script src="script.js" charset="UTF-8"></script>
 
 </body>
 
