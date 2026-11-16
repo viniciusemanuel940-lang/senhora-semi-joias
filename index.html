@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Senhora Semi Joia</title>
-<link rel="stylesheet" href="style.css">
-    </head>
-
-    <body>
-
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
     <button class="botao-menu" id="botao-menu" type="button" aria-label="Abrir menu">☰</button>
-
     <div class="sombra" id="sombra"></div>
 
     <aside class="lateral" id="lateral">
@@ -24,8 +21,7 @@
 
     <div class="abertura">
         <button class="diamante" type="button" aria-label="Abrir o aplicativo">
-            <svg viewBox="0 0 100 80" width="120" height="96"
-                 fill="none" stroke="#c9a24a" stroke-width="2">
+            <svg viewBox="0 0 100 80" width="120" height="96" fill="none" stroke="#c9a24a" stroke-width="2">
                 <polygon points="25,5 75,5 98,28 50,75 2,28"/>
                 <line x1="2" y1="28" x2="98" y2="28"/>
                 <line x1="25" y1="5" x2="38" y2="28"/>
@@ -43,8 +39,7 @@
             <strong>SENHORA</strong>
             <small>SEMI JOIAS</small>
         </div>
-        <svg viewBox="0 0 100 80" width="30" height="24"
-             fill="none" stroke="#c9a24a" stroke-width="3">
+        <svg viewBox="0 0 100 80" width="30" height="24" fill="none" stroke="#c9a24a" stroke-width="3">
             <polygon points="25,5 75,5 98,28 50,75 2,28"/>
             <line x1="2" y1="28" x2="98" y2="28"/>
             <line x1="25" y1="5" x2="38" y2="28"/>
@@ -54,24 +49,19 @@
         </svg>
     </header>
 
-    <!-- ===== ADICIONAR CLIENTE ===== -->
     <section id="tela-adicionar" class="tela ativa">
         <h2>Adicionar cliente</h2>
-
         <div class="duas-colunas">
             <div>
                 <form class="cartao" id="form-cliente">
                     <label for="nome-cliente">Nome do cliente</label>
                     <input id="nome-cliente" type="text" placeholder="Ex.: Maria">
-
                     <label for="telefone-cliente">Telefone (WhatsApp)</label>
                     <input id="telefone-cliente" type="tel" placeholder="Ex.: (17) 99999-9999">
-
                     <button type="submit">Adicionar cliente</button>
                 </form>
                 <p id="aviso-cliente" class="aviso" hidden></p>
             </div>
-
             <div>
                 <h3 id="titulo-adicionar">Clientes cadastradas</h3>
                 <p class="vazio" id="vazio-adicionar">Nenhuma cliente cadastrada ainda.</p>
@@ -79,7 +69,7 @@
             </div>
         </div>
     </section>
-        <!-- ===== CLIENTES ===== -->
+
     <section id="tela-clientes" class="tela">
         <h2>Clientes</h2>
         <input id="busca-cliente" type="search" placeholder="Buscar cliente...">
@@ -87,11 +77,9 @@
         <ul class="lista" id="lista-clientes"></ul>
     </section>
 
-    <!-- ===== FICHA DA CLIENTE ===== -->
     <section id="tela-ficha" class="tela">
         <button type="button" id="voltar-clientes" class="mini secundario">← Voltar</button>
         <h2 id="ficha-nome"></h2>
-
         <p id="ficha-telefone" class="vazio"></p>
 
         <div class="acoes-ficha">
@@ -99,6 +87,12 @@
             <button type="button" id="excluir-cliente" class="mini perigo">Excluir cliente</button>
             <button type="button" id="cobrar-whatsapp" class="mini">Cobrar no WhatsApp</button>
             <button type="button" id="enviar-venda" class="mini">Enviar registro da venda</button>
+        </div>
+
+        <div class="cartao">
+            <label for="data-venda-envio">Venda que deseja enviar</label>
+            <select id="data-venda-envio"></select>
+            <small>Escolha uma venda registrada. Você pode enviar a mensagem em qualquer dia; ela manterá a data original da venda.</small>
         </div>
 
         <div class="resumo">
@@ -112,34 +106,23 @@
             <div>
                 <form class="cartao" id="form-peca-cliente">
                     <h3>Anotar peça</h3>
-
                     <label for="escolher-catalogo">Escolher do catálogo (opcional)</label>
                     <select id="escolher-catalogo"></select>
-
                     <label for="foto-peca-cliente">Foto da peça</label>
                     <input id="foto-peca-cliente" type="file" accept="image/*">
                     <img id="previa-peca-cliente" class="previa" alt="Prévia da foto" hidden>
-
                     <label for="nome-peca-cliente">Nome da peça</label>
                     <input id="nome-peca-cliente" type="text" list="sugestoes-pecas" autocomplete="off" placeholder="Ex.: Colar folheado">
                     <datalist id="sugestoes-pecas"></datalist>
-
                     <label for="preco-peca-cliente">Valor (R$)</label>
-                    <input id="preco-peca-cliente" type="number" min="0" step="0.01"
-                           inputmode="decimal" placeholder="Ex.: 35.00">
-
+                    <input id="preco-peca-cliente" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ex.: 35.00">
                     <label for="data-peca-cliente">Data</label>
                     <input id="data-peca-cliente" type="date">
-
                     <label for="vencimento-peca-cliente">Data de vencimento</label>
                     <input id="vencimento-peca-cliente" type="date">
-
                     <button type="submit" id="botao-peca-cliente">Anotar peça</button>
-                    <button type="button" id="cancelar-peca-cliente" class="secundario" hidden>
-                        Cancelar edição
-                    </button>
+                    <button type="button" id="cancelar-peca-cliente" class="secundario" hidden>Cancelar edição</button>
                 </form>
-
                 <h3>Peças desta cliente</h3>
                 <p class="vazio" id="vazio-pecas-cliente">Nenhuma peça anotada ainda.</p>
                 <ul class="lista" id="lista-pecas-cliente"></ul>
@@ -148,83 +131,52 @@
             <div>
                 <form class="cartao" id="form-pagamento">
                     <h3>Anotar pagamento</h3>
-
                     <label for="valor-pagamento">Valor pago (R$)</label>
-                    <input id="valor-pagamento" type="number" min="0.01" step="0.01"
-                           inputmode="decimal" placeholder="Ex.: 50.00">
-
-                        <label for="forma-pagamento">Forma de pagamento</label>
-                           <select id="forma-pagamento">
-                            <option value="Pix">Pix</option>
-                                <option value="Cartão de débito">Cartão de débito</option>
-                                <option value="Cartão de crédito">Cartão de crédito</option>
-                            <option value="Dinheiro">Dinheiro</option>
-                         </select>
-
+                    <input id="valor-pagamento" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="Ex.: 50.00">
+                    <label for="forma-pagamento">Forma de pagamento</label>
+                    <select id="forma-pagamento">
+                        <option value="Pix">Pix</option>
+                        <option value="Cartão de débito">Cartão de débito</option>
+                        <option value="Cartão de crédito">Cartão de crédito</option>
+                        <option value="Dinheiro">Dinheiro</option>
+                    </select>
                     <label for="data-pagamento">Data</label>
                     <input id="data-pagamento" type="date">
-
                     <button type="submit" id="botao-pagamento">Anotar pagamento</button>
-                    <button type="button" id="cancelar-pagamento" class="secundario" hidden>
-                        Cancelar edição
-                    </button>
+                    <button type="button" id="cancelar-pagamento" class="secundario" hidden>Cancelar edição</button>
                 </form>
-
                 <h3>Pagamentos</h3>
                 <p class="vazio" id="vazio-pagamentos">Nenhum pagamento anotado ainda.</p>
                 <ul class="lista" id="lista-pagamentos"></ul>
             </div>
         </div>
     </section>
-        <!-- ===== PEÇAS (CATÁLOGO) ===== -->
+
     <section id="tela-pecas" class="tela">
         <h2>Peças</h2>
-
         <form class="cartao" id="form-peca">
             <label for="foto-peca">Foto da peça</label>
             <input id="foto-peca" type="file" accept="image/*">
             <img id="previa-peca" class="previa" alt="Prévia da foto" hidden>
-
             <label for="nome-peca">Nome da peça</label>
             <input id="nome-peca" type="text" placeholder="Ex.: Brinco ponto de luz">
-
             <label for="preco-peca">Valor (R$)</label>
-            <input id="preco-peca" type="number" min="0" step="0.01"
-                   inputmode="decimal" placeholder="Ex.: 35.00">
-
+            <input id="preco-peca" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ex.: 35.00">
             <button type="submit" id="botao-peca">Salvar peça</button>
-            <button type="button" id="cancelar-edicao" class="secundario" hidden>
-                Cancelar edição
-            </button>
+            <button type="button" id="cancelar-edicao" class="secundario" hidden>Cancelar edição</button>
         </form>
-
         <p class="vazio" id="sem-pecas">Nenhuma peça cadastrada ainda.</p>
         <div id="lista-pecas" class="grade-pecas"></div>
     </section>
 
-    <!-- ===== VENDAS ===== -->
     <section id="tela-vendas" class="tela">
         <h2>Vendas</h2>
-
         <div class="resumo">
-            <div class="resumo-card">
-                <span>Vendido no mês</span>
-                <strong id="vendido-mes">R$ 0,00</strong>
-            </div>
-            <div class="resumo-card">
-                <span>Recebido no mês</span>
-                <strong id="recebido-mes">R$ 0,00</strong>
-            </div>
-            <div class="resumo-card">
-                <span>Total vendido</span>
-                <strong id="vendido-total">R$ 0,00</strong>
-            </div>
-            <div class="resumo-card">
-                <span>Falta receber</span>
-                <strong id="vendas-falta">R$ 0,00</strong>
-            </div>
+            <div class="resumo-card"><span>Vendido no mês</span><strong id="vendido-mes">R$ 0,00</strong></div>
+            <div class="resumo-card"><span>Recebido no mês</span><strong id="recebido-mes">R$ 0,00</strong></div>
+            <div class="resumo-card"><span>Total vendido</span><strong id="vendido-total">R$ 0,00</strong></div>
+            <div class="resumo-card"><span>Falta receber</span><strong id="vendas-falta">R$ 0,00</strong></div>
         </div>
-
         <div class="cartao">
             <h3>Últimos 6 meses</h3>
             <div class="grafico" id="grafico"></div>
@@ -232,39 +184,27 @@
                 <span><i class="cor-vendido"></i>Vendido</span>
                 <span><i class="cor-recebido"></i>Recebido</span>
             </div>
-
             <table>
-                <thead>
-                    <tr>
-                        <th>Mês</th>
-                        <th>Vendido</th>
-                        <th>Recebido</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Mês</th><th>Vendido</th><th>Recebido</th></tr></thead>
                 <tbody id="tabela-meses"></tbody>
             </table>
         </div>
-
         <h3>Últimas vendas</h3>
         <p class="vazio" id="vazio-vendas">Nenhuma venda anotada ainda.</p>
         <ul class="lista" id="lista-vendas"></ul>
     </section>
 
-    <!-- ===== A RECEBER ===== -->
     <section id="tela-receber" class="tela">
         <h2>A receber</h2>
-
         <div class="resumo-card">
             <span>Total que falta receber</span>
             <strong id="total-receber">R$ 0,00</strong>
         </div>
-
         <h3>Clientes com valor em aberto</h3>
         <p class="vazio" id="vazio-receber">Ninguém com valor em aberto.</p>
         <ul class="lista" id="lista-receber"></ul>
     </section>
-<script src="script.js" charset="UTF-8"></script>
 
+    <script src="script.js" charset="UTF-8"></script>
 </body>
-
-</html>  
+</html>

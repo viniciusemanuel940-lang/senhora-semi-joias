@@ -451,6 +451,8 @@ pecas.forEach(function (peca) {
             const cliente = buscarCliente(clienteAtualId);
             if (!cliente) return;
 
+            atualizarOpcoesEnvioVenda(cliente);
+
             fichaNome.textContent = cliente.nome;
             fichaTelefone.textContent = cliente.telefone || 'Sem telefone cadastrado';
             fichaQtd.textContent = cliente.pecas.length;
@@ -611,7 +613,7 @@ window.open(link, '_blank');
 
 });
 
-function montarMensagemVenda(cliente) {
+function montarMensagemVenda(cliente, dataVenda) {
     const coracao = '\u{1F5A4}';
     const brilho = '\u{2728}';
     const dinheiro = '\u{1F4B0}';
@@ -619,17 +621,17 @@ function montarMensagemVenda(cliente) {
     const cartao = '\u{1F4B3}';
     const alerta = '\u{26A0}\u{FE0F}';
 
-    const pecasDeHoje = cliente.pecas.filter(function (peca) {
-        return peca.data === hoje();
+    const pecasDaData = cliente.pecas.filter(function (peca) {
+        return peca.data === dataVenda;
     });
 
-    const linhas = pecasDeHoje.map(function (peca) {
+    const linhas = pecasDaData.map(function (peca) {
         return '• ' + peca.nome + ' – ' + formatarReais(peca.preco);
     });
 
-    const total = somar(pecasDeHoje, 'preco');
+    const total = somar(pecasDaData, 'preco');
 
-        const vencimentos = pecasDeHoje
+        const vencimentos = pecasDaData
         .map(function (peca) { return peca.vencimento; })
         .filter(function (data) { return data; })
         .sort();
@@ -640,6 +642,7 @@ function montarMensagemVenda(cliente) {
 
     return coracao + ' REGISTRO DE VENDA ' + coracao + '\n\n' +
         'Seu pedido ficou registrado!\n\n' +
+        calendario + ' Data da venda: ' + formatarData(dataVenda) + '\n\n' +
         brilho + ' Produtos:\n' + linhas.join('\n') + '\n\n' +
         dinheiro + ' Total: ' + formatarReais(total) + '\n\n' +
         linhaVencimento +
@@ -650,6 +653,21 @@ function montarMensagemVenda(cliente) {
 }
 
 const botaoEnviarVenda = document.getElementById('enviar-venda');
+const campoDataVendaEnvio = document.getElementById('data-venda-envio');
+
+function atualizarOpcoesEnvioVenda(cliente) {
+    const datas = Array.from(new Set(
+        cliente.pecas.map(function (peca) { return peca.data; }).filter(Boolean)
+    )).sort().reverse();
+
+    campoDataVendaEnvio.replaceChildren();
+    datas.forEach(function (data) {
+        const opcao = document.createElement('option');
+        opcao.value = data;
+        opcao.textContent = 'Venda de ' + formatarData(data);
+        campoDataVendaEnvio.append(opcao);
+    });
+}
 
 botaoEnviarVenda.addEventListener('click', function () {
     const cliente = buscarCliente(clienteAtualId);
@@ -661,17 +679,11 @@ botaoEnviarVenda.addEventListener('click', function () {
         return;
     }
 
-    const vendeuHoje = cliente.pecas.some(function (peca) {
-        return peca.data === hoje();
-    });
-
-    if (!vendeuHoje) {
-        alert('Nenhuma peça lançada hoje para esta cliente.');
-        return;
-    }
+    const dataVenda = campoDataVendaEnvio.value;
+    if (!dataVenda) return;
 
 const link = 'https://api.whatsapp.com/send?phone=55' + numeros +
-    '&text=' + encodeURIComponent(montarMensagemVenda(cliente));
+    '&text=' + encodeURIComponent(montarMensagemVenda(cliente, dataVenda));
 
     window.open(link, '_blank');
 });
